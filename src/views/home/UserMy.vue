@@ -39,7 +39,12 @@ const goSz=()=>{
   console.log("111")
   router.push('/userSz')
 }
-const Info=reactive({
+interface myInfo{
+  head?:string,
+  username?:string,
+  account?:string
+}
+const Info=reactive<any>({
   myInfo:{}
 })
 </script>

@@ -1,11 +1,9 @@
 <template>
-userIndeex
+<div>userIndex</div>
 </template>
 
-<script>
-export default {
-  name: "UserIndex"
-}
+<script lang="ts" setup>
+
 </script>
 
 <style scoped>

@@ -14,10 +14,8 @@
 
 </template>
 
-<script>
-export default {
-  name: "LoadingIcon"
-}
+<script setup lang="ts">
+
 </script>
 
 <style scoped>
