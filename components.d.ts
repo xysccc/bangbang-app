@@ -7,17 +7,22 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    FormCps: typeof import('./src/components/NcFormCps.vue')['default']
     GoBack: typeof import('./src/components/GoBack.vue')['default']
     HeadCps: typeof import('./src/components/HeadCps.vue')['default']
     HomeButton: typeof import('./src/components/HomeButton.vue')['default']
     LoadingCps: typeof import('./src/components/LoadingCps.vue')['default']
     LoadingIcon: typeof import('./src/components/icons/LoadingIcon.vue')['default']
+    NcFormCps: typeof import('./src/components/NcFormCps.vue')['default']
+    PhoneFormCps: typeof import('./src/components/PhoneFormCps.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TopCps: typeof import('./src/components/TopCps.vue')['default']
     VanButton: typeof import('vant/es')['Button']
     VanCellGroup: typeof import('vant/es')['CellGroup']
     VanField: typeof import('vant/es')['Field']
     VanForm: typeof import('vant/es')['Form']
     VanIcon: typeof import('vant/es')['Icon']
+    VanUploader: typeof import('vant/es')['Uploader']
   }
 }

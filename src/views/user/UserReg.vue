@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="Reg_Wrapped">
     <loading-cps ref="crx"/>
-    <go-back/>
+    <go-back style="color:#fff;"/>
     <head-cps/>
     <div class="bd">
       <span class="span_login">注册</span>
@@ -55,7 +55,6 @@ import { ref } from "vue";
 import { api_getCode, reg } from "@/request/api";
 import { Toast } from "vant";
 import router from "@/router";
-import axios from "axios";
 
 const crx = ref<any>()
 const email = ref('')
@@ -91,8 +90,14 @@ const getCode=()=>{
       "account": email.value,
     }).then((res:any)=>{
       console.log(res)
-      if (res.code!==1) return Toast.fail('登陆失败')
-      crx.value.loading1.clear()
+      // if (res.code!==1) return Toast.fail('获取验证码失败')
+      // crx.value.loading1.clear()
+      if (res.code!==1){
+        Toast.fail(`${res.message}`)
+        crx.value.loading1.clear()
+      }else {
+        crx.value.loading1.clear()
+      }
     })
      setTimeout(() => {
 
@@ -107,11 +112,16 @@ const getCode=()=>{
 </script>
 
 <style scoped lang="less">
+.Reg_Wrapped{
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
 .bd {
   position: absolute;
-  top: 30vh;
+  bottom: 0;
   width: 100vw;
-  height: 61.32vh;
+  height: 72.32vh;
   opacity: 1;
   border-radius: 5.33vw;
   background: rgba(255, 255, 255, 1);
@@ -134,7 +144,7 @@ const getCode=()=>{
   }
 
   .van-form {
-    margin-top: 10vh;
+    margin-top: 12vh;
   }
 
 }

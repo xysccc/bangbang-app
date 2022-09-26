@@ -1,6 +1,7 @@
 <template>
  <div class="Login_Wrapped">
    <loading-cps ref="crx"/>
+   <go-back style="color:#fff;"/>
    <head-cps/>
    <div class="bd">
      <span class="span_login">登录</span>
@@ -42,8 +43,8 @@ import jwt_decode from 'jwt-decode'
 import router from "@/router";
 import LoadingCps from '@/components/LoadingCps.vue'
 import HeadCps from "@/components/HeadCps.vue";
-import axios from "axios";
 import { Toast } from "vant";
+import GoBack from '@/components/GoBack.vue'
 //解析token
 const store = useStore()
 const username = ref('')
@@ -61,18 +62,24 @@ const onSubmit = (values: object) => {
         "password": password.value
       }).then((res: any) => {
         console.log(res)
-        if (res.code !== 1) return Toast.fail('登陆失败')
-        crx.value.loading1.clear()
-        // Toast.success('登陆成功');
-        const token = res.result.token
-        //token存到本地
-        localStorage.setItem("token", token);
-        //相关信息
-        const userInfo = jwt_decode(token)
-        store.setIsLogin(true)
-        store.setToken(token)
-        store.setUser(userInfo)
-        router.push('/home')
+        if (res.code !== 1) {
+          Toast.fail(`${res.message}`)
+          crx.value.loading1.clear()
+        }
+        else {
+          crx.value.loading1.clear()
+          // Toast.success('登陆成功');
+          const token = res.result.token
+          //token存到本地
+          localStorage.setItem("token", token);
+          //相关信息
+          const userInfo = jwt_decode(token)
+          store.setIsLogin(true)
+          store.setToken(token)
+          store.setUser(userInfo)
+          router.push('/home')
+        }
+
       })
      ;
     });
@@ -82,6 +89,7 @@ const onSubmit = (values: object) => {
 };
 </script>
 <style lang="less">
+//最外层包裹部分
 .Login_Wrapped{
   width: 100vw;
   height: 100vh;
@@ -95,7 +103,7 @@ const onSubmit = (values: object) => {
   position: absolute;
   bottom: 0;
   width: 100vw;
-  height: 70.32vh;
+  height: 72.32vh;
   opacity: 1;
   border-radius: 5.33vw;
   background: rgba(255, 255, 255, 1);
@@ -117,7 +125,7 @@ const onSubmit = (values: object) => {
   }
   //表单样式
   .van-form {
-    margin-top: 10vh;
+    margin-top: 12vh;
   }
   //去注册那行样式
   .reg{

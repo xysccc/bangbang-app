@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="isShowTotal">
 <!--  1 star-->
   <header class="my_header">
 <!--    设置按钮-->
@@ -7,12 +7,12 @@
   </header>
 <!--  1 end-->
 <!--  2 star-->
-  <div class="person_information">
+  <div class="person_information" @click="router.push('/person')">
 <!--    头像-->
   <div class="left_tx"><img :src="Info.myInfo.head"></div>
   <div class="right">
 <!--    姓名那一块-->
-    <div class="right-left"><p>{{Info.myInfo.username}}</p><div class="email">邮箱 {{Info.myInfo.account}}</div></div>
+    <div class="right-left"><div class="name">{{Info.myInfo.username}}</div><div class="email">邮箱 {{Info.myInfo.account}}</div></div>
 <!--    去详细信息的箭头-->
     <div class="right-right">
       <font-awesome-icon icon="fa-solid fa-chevron-right" />
@@ -25,18 +25,22 @@
 
 <script setup lang="ts">
 import router from "@/router";
-import { onBeforeMount, onMounted, reactive, watchEffect } from "vue";
+import { onBeforeMount, onMounted, reactive, ref, watchEffect } from "vue";
 import axios from "axios";
 import { Toast } from "vant";
-onMounted(async () => {
-  const {data:res} = await axios.post('/user');
+import { store } from "@/utils/useStore";
+import { getPersonInformation } from "@/request/api";
+const isShowTotal=ref(false)
+getPersonInformation().then((res:any)=>{
   if (res.code!==1) return Toast.fail('获取用户信息失败')
   //获取我的信息成功,赋值到本地
   Info.myInfo=res.result
+  //请求成功显示页面
+  isShowTotal.value=true
+  //将详细信息存到pinia
+  store.setUserInfo(res.result)
 })
-
 const goSz=()=>{
-  console.log("111")
   router.push('/userSz')
 }
 interface myInfo{
@@ -69,6 +73,7 @@ const Info=reactive<any>({
 //简略信息
 .person_information{
   margin-top: 20px;
+  padding-left: 10px;
 display: flex;
   justify-content: space-between;
   //头像盒子
@@ -88,7 +93,7 @@ display: flex;
     justify-content: space-between;
     .right-left{
       //姓名
-      p{
+      .name{
         font-family: name,serif;
         font-size: 28px;
         font-weight: 500;

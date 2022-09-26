@@ -6,7 +6,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/welcome'
+            redirect: '/home/index'
         },
         {
             path: '/welcome',
@@ -41,17 +41,30 @@ const router = createRouter({
         {
             path:"/userSz",
             component:()=>import('@/views/other/SzCps.vue')
+        },
+        {
+            path:"/person",
+            component:()=>import('@/views/user/UserInformation.vue'),
+        },
+        {
+            path:"/person/updateNc",
+            component:()=>import('@/views/user/UpdateNc.vue')
+        },
+        {
+            path:"/person/bindingPhone",
+            component:()=>import('@/views/user/BindingPhone.vue')
         }
     ]
 })
 //路由前置守卫
 router.beforeEach((to,from,next)=>{
     //定义白名单
-    const whitePath=['/login','/welcome','reg']
+    const whitePath=['/login','/welcome','/reg']
     //白名单放行
     if(whitePath.includes(to.path)) return next()
     const tokenStr=localStorage.getItem('token')
     if(!tokenStr) return next('/login')
     next()
 })
+
 export default router

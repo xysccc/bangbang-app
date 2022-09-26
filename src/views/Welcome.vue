@@ -12,7 +12,11 @@ import '@/assets/img/bgTotal.png'
 import router from "@/router";
 
 const go = () => {
-  router.push('/login')
+  if (localStorage.getItem('token')){
+    router.push('/home/index')
+  }else {
+    router.push('/login')
+  }
 }
 </script>
 

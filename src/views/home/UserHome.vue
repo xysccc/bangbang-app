@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home_Wrapped">
     <router-view/>
     <div class="footer">
       <div class="footer_item" v-for="item in footerList" @click="go(item)" :class="item.isSelect===true?'blue':''">
@@ -11,12 +11,18 @@
 </template>
 
 <script setup lang="ts">
-import { Toast } from "vant";
 import router from "@/router";
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref, watchEffect } from "vue";
 import { useStore } from "@/stores";
+import { store } from "@/utils/useStore";
 
-const store = useStore()
+
+onMounted(()=>{
+  //取消动画
+  document.querySelector('.home_Wrapped')!.classList.remove("animate__animated","animate__bounceInRight")
+  //初始底部栏的首页高亮
+   footerList.find(item=>item.text===store.getIsSelect)!.isSelect=true
+})
 const blue = ref('')
 const go = (item: any) => {
   const title = item.text

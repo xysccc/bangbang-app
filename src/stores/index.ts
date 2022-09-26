@@ -4,15 +4,19 @@ export const useStore = defineStore('XYS',{
         return {
             isLogin: false,
             token:'',
+            //通过token解析出来的user对象
             user: {},
-            isSelect:''
+            isSelect:'首页',
+            // user详细信息
+            userInfo:{}
         }
     },
     getters: { //通过getters对状态state进行获取
         getIsLogin: (state) => state.isLogin,
         getUser: (state) => state.user,
         getToken: (state) => state.token,
-        getIsSelect: (state) => state.isSelect
+        getIsSelect: (state) => state.isSelect,
+        getUserInfo: (state) => state.userInfo
     },
     actions: {
         setIsLogin(isAuth: boolean) {//修改当前登录的状态
@@ -38,6 +42,9 @@ export const useStore = defineStore('XYS',{
         },
         setIsSelect(title:string){
             this.isSelect=title
+        },
+        setUserInfo(title:any){
+            this.userInfo=title
         }
     },
 })
