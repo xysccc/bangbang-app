@@ -2,26 +2,23 @@
 <transition>
   <div>
     <loading-cps ref="crx"/>
-    <top-cps/>
+    <status-bar/>
     <home-button :label="buttonLabel" @click="exit"/>
   </div>
 </transition>
 </template>
 
 <script setup lang="ts">
-import GoBack from '@/components/GoBack.vue'
+import StatusBar from '@/components/StatusBar.vue'
 import HomeButton from '@/components/HomeButton.vue'
 import LoadingCps from '@/components/LoadingCps.vue'
 import { ref } from "vue";
 import { Toast } from "vant";
 import router from "@/router";
 import { store } from "@/utils/useStore";
-import axios from "axios";
 import { api_exit } from "@/request/api";
-import TopCps from '@/components/TopCps.vue'
 const crx=ref<any>()
 const buttonLabel=ref('退出登录')
-const tokenStr=ref(store.getToken)
 //退出登录
 const exit = () => {
   new Promise(async resolve => {
@@ -31,14 +28,12 @@ const exit = () => {
       if (res.code!==1) return Toast.fail('退出失败')
       //退出成功
       crx.value.loading1.clear()
-      //清空token
-      localStorage.clear()
-      store.setIsLogin(false)
-      store.setToken('')
-      store.setUser({})
-      store.setUserInfo({})
+      //清空pinia的数据和localStorage的数据
+      // localStorage.clear()
+      store.$reset()
+
       store.setIsSelect('首页')
-      router.push('/welcome')
+      router.push('/login')
     })
   })
 }

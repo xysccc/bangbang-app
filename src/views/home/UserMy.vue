@@ -1,5 +1,6 @@
 <template>
 <div v-if="isShowTotal">
+  <status-bar/>
 <!--  1 star-->
   <header class="my_header">
 <!--    设置按钮-->
@@ -12,7 +13,7 @@
   <div class="left_tx"><img :src="Info.myInfo.head"></div>
   <div class="right">
 <!--    姓名那一块-->
-    <div class="right-left"><div class="name">{{Info.myInfo.username}}</div><div class="email">邮箱 {{Info.myInfo.account}}</div></div>
+    <div class="right-left"><div class="name">{{Info.myInfo.username}}</div><div class="email">邮箱 {{Info.myInfo.email}}</div></div>
 <!--    去详细信息的箭头-->
     <div class="right-right">
       <font-awesome-icon icon="fa-solid fa-chevron-right" />
@@ -24,12 +25,15 @@
 </template>
 
 <script setup lang="ts">
+import StatusBar from '@/components/StatusBar.vue'
 import router from "@/router";
-import { onBeforeMount, onMounted, reactive, ref, watchEffect } from "vue";
-import axios from "axios";
+import {  reactive, ref } from "vue";
 import { Toast } from "vant";
 import { store } from "@/utils/useStore";
 import { getPersonInformation } from "@/request/api";
+
+
+
 const isShowTotal=ref(false)
 getPersonInformation().then((res:any)=>{
   if (res.code!==1) return Toast.fail('获取用户信息失败')
@@ -46,7 +50,7 @@ const goSz=()=>{
 interface myInfo{
   head?:string,
   username?:string,
-  account?:string
+  email?:string
 }
 const Info=reactive<any>({
   myInfo:{}
@@ -60,7 +64,6 @@ const Info=reactive<any>({
 }
 //最顶部
 .my_header{
-  padding-top: 11px;
   width: 100vw;
   height: 4vh;
   padding-right: 20px;
@@ -68,6 +71,7 @@ const Info=reactive<any>({
   .icon-sz{
     float: right;
     font-size: 22px;
+
   }
 }
 //简略信息
@@ -94,6 +98,7 @@ display: flex;
     .right-left{
       //姓名
       .name{
+        height: 44.8px;
         font-family: name,serif;
         font-size: 28px;
         font-weight: 500;

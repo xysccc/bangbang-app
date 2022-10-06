@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import {useStore} from "@/stores";
 
 
 const router = createRouter({
@@ -6,7 +7,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/home/index'
+            redirect: '/welcome'
         },
         {
             path: '/welcome',
@@ -18,7 +19,19 @@ const router = createRouter({
         },
         {
             path: '/reg',
-            component: () => import('@/views/user/UserReg.vue')
+            component: () => import('@/views/user/Reg/UserReg.vue')
+        },
+        {
+            path: '/reg/reg1',
+            component: () => import('@/views/user/Reg/RegFirst.vue')
+        },
+        {
+            path: '/reg/reg2',
+            component: () => import('@/views/user/Reg/RegSecond.vue')
+        },
+        {
+            path: '/reg/reg3',
+            component: () => import('@/views/user/Reg/RegThird.vue')
         },
         {
             path: '/home',
@@ -59,12 +72,17 @@ const router = createRouter({
 //路由前置守卫
 router.beforeEach((to,from,next)=>{
     //定义白名单
-    const whitePath=['/login','/welcome','/reg']
+    const whitePath=['/login','/reg','/reg/reg1','/reg/reg2','/reg/reg3']
     //白名单放行
     if(whitePath.includes(to.path)) return next()
-    const tokenStr=localStorage.getItem('token')
+    if (to.path==='/welcome'&&localStorage.getItem('first')) return next('/home/index')
+    if (to.path==='/welcome'&&!localStorage.getItem('first')) return next()
+    const  store=useStore()
+    const tokenStr=store.getToken
     if(!tokenStr) return next('/login')
     next()
+
+
 })
 
 export default router

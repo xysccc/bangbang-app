@@ -23,7 +23,8 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(216, 211, 211, 0.1);
+  /*background-color: rgba(216, 211, 211, 0.1);*/
+  background-color: #fff;
   z-index: 1;
 }
 .svg-loading{

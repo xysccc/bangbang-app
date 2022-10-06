@@ -1,8 +1,12 @@
 @import "./base.css";
+
 html,body,#app{
   margin: 0;
   height: 100%;
   overflow: hidden;
+  max-width: 500px;
+  max-height: 900px;
 }
+
 
 

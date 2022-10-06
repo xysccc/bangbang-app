@@ -5,7 +5,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 //设置post请求方式请求头
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 const requests=axios.create({
-    baseURL:'http://114.116.95.152',
+    baseURL:'http://114.116.95.152:3326',
     headers:{'Content-Type':'application/json;charset=utf-8'},
     timeout:5000
 })

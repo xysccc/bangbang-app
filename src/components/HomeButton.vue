@@ -16,25 +16,29 @@
 
 <style scoped lang="less">
 .bt-Wrapped{
-  width: 66.67vw;
-  height:10.93vw;
-  margin-left: 50vw;
-  transform: translate(-33.3vw,80vh);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 .HomeButton{
   outline: none;
   user-select: none;
-  padding: 0;
-  width: 66.67vw;
-  height:10.93vw;
-  background-color: #F14863;
-  border: none;
-  border-radius: 18.67vw;
+  width: 327px;
+  height: 56px;
+  opacity: 1;
+  border-radius: 32px;
+  background: rgba(37, 99, 235, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 8px 8px 8px;
   span{
-    font-size: 5.6vw;
-    font-weight: 300;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0px;
+    line-height: 22.4px;
     color: rgba(255, 255, 255, 1);
-    text-align: left;
+    text-align: center;
     vertical-align: top;
   }
 }

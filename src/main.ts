@@ -1,8 +1,10 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
 import App from './App.vue'
+import piniaPlug from 'pinia-plugin-persistedstate'
+const pinia=createPinia()
 import router from './router'
+
 
 import './assets/main.css'
 import 'vant/es/toast/style';
@@ -20,10 +22,17 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import {  fab} from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
+
 /* add icons to the library */
-library.add(fas,fab,far)
+library.add(fas)
+library.add(fab)
+library.add(far)
 const app = createApp(App)
+app.use(pinia)
+//使用持久化插件
+pinia.use(piniaPlug)
+
 app.component('font-awesome-icon', FontAwesomeIcon)
-app.use(createPinia())
+
 app.use(router)
 app.mount('#app')
