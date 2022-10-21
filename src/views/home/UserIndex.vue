@@ -1,7 +1,7 @@
 <template>
 <div>
   <status-bar/>
-  userIndex
+
 </div>
 </template>
 
@@ -9,6 +9,8 @@
 import StatusBar from '@/components/StatusBar.vue'
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+:deep(button:enabled:active) {
+  background-color: #22a7f2  ;
+}
 </style>

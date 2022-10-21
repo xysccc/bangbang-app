@@ -123,7 +123,7 @@
 
 import LoadingCps from '@/components/LoadingCps.vue'
 import { reactive, ref, watch } from "vue";
-import { api_getCode } from "@/request/api";
+import { api_getCode,api_reg } from "@/request/api";
 import { Toast } from "vant";
 import router from "@/router";
 import HomeButton from "@/components/HomeButton.vue";
@@ -213,7 +213,7 @@ const onSubmit = (values: object) => {
     new Promise(resolve => {
       crx.value.loading1.true()
       //发送请求
-      reg({
+      api_reg({
         "email": email.value,
         "code": code.value,
         "password": password.value

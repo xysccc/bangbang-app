@@ -1,5 +1,5 @@
 <template>
-  <div class="bt-Wrapped">
+  <div class="bt_Wrapped">
     <button class="HomeButton"><span>{{label}}</span></button>
   </div>
 </template>
@@ -15,7 +15,7 @@
 </script>
 
 <style scoped lang="less">
-.bt-Wrapped{
+.bt_Wrapped{
   width: 100vw;
   display: flex;
   justify-content: center;

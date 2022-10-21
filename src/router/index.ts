@@ -15,7 +15,7 @@ const router = createRouter({
         },
         {
             path: '/login',
-            component: () => import('@/views/user/UserLogin.vue'),
+            component: () => import('@/views/user/Login/UserLogin.vue'),
         },
         {
             path: '/reg',
@@ -57,15 +57,15 @@ const router = createRouter({
         },
         {
             path:"/person",
-            component:()=>import('@/views/user/UserInformation.vue'),
+            component:()=>import('@/views/user/userInfo/UserInformation.vue'),
         },
         {
             path:"/person/updateNc",
-            component:()=>import('@/views/user/UpdateNc.vue')
+            component:()=>import('@/views/user/userInfo/UpdateNc.vue')
         },
         {
             path:"/person/bindingPhone",
-            component:()=>import('@/views/user/BindingPhone.vue')
+            component:()=>import('@/views/user/userInfo/BindingPhone.vue')
         }
     ]
 })

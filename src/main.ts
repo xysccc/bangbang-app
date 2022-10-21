@@ -9,7 +9,7 @@ import router from './router'
 import './assets/main.css'
 import 'vant/es/toast/style';
 import '@/assets/iconfont.css'
-
+import 'lib-flexible'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 

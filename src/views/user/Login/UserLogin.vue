@@ -23,7 +23,7 @@
                 :rules="[{ pattern:patternEmail, message: '请输入合法qq邮箱' }]"
             >
               <template #left-icon>
-                <img src="../../assets/img/Message.png" style="width: 24px;height: 24px;">
+                <img src="../../../assets/img/Message.png" style="width: 24px;height: 24px;">
               </template>
             </van-field>
             <label class="label">密码</label>
@@ -36,11 +36,11 @@
                 ref="passwordRef"
             >
               <template #left-icon>
-                <img src="../../assets/img/lock.png" style="width: 24px;height: 24px;">
+                <img src="../../../assets/img/lock.png" style="width: 24px;height: 24px;">
               </template>
               <template #right-icon>
-                <img src="../../assets/img/passwordFalse.png" style="width: 22px;height: 15px;" v-show="isShowPassword"  @click="changShowPassword">
-                <img src="../../assets/img/passwordTrue.png" style="width: 22px;height: 15px;" v-show="!isShowPassword" @click="changShowPassword">
+                <img src="../../../assets/img/passwordFalse.png" style="width: 22px;height: 15px;" v-show="isShowPassword" @click="changShowPassword">
+                <img src="../../../assets/img/passwordTrue.png" style="width: 22px;height: 15px;" v-show="!isShowPassword" @click="changShowPassword">
               </template>
             </van-field>
           </van-cell-group>
@@ -59,13 +59,13 @@
         <div class="otherLogin_wrapped">
           <div class="otherLogin">
           <div class="otherLogin_item item_qq">
-            <img src="../../assets/img/qq.png">
+            <img src="../../../assets/img/qq.png">
           </div>
             <div class="otherLogin_item item_wx">
-              <img src="../../assets/img/wx.png">
+              <img src="../../../assets/img/wx.png">
             </div>
             <div class="otherLogin_item item_dx">
-              <img src="../../assets/img/dx.png">
+              <img src="../../../assets/img/dx.png">
             </div>
           </div>
         </div>
