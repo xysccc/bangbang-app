@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import {useStore} from "@/stores";
 
 
+
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),
     routes: [
@@ -42,12 +43,16 @@ const router = createRouter({
                     component:()=>import('@/views/home/UserIndex.vue')
                 },
                 {
-                path:"/home/index",
+                path:"index",
                 component:()=>import('@/views/home/UserIndex.vue')
             },
                 {
-                    path:"/home/my",
+                    path:"my",
                     component:()=>import('@/views/home/UserMy.vue')
+                },
+                {
+                    path:"message",
+                    component:()=>import('@/views/home/UserMessage.vue')
                 },
             ]
         },
@@ -60,13 +65,57 @@ const router = createRouter({
             component:()=>import('@/views/user/userInfo/UserInformation.vue'),
         },
         {
-            path:"/person/updateNc",
-            component:()=>import('@/views/user/userInfo/UpdateNc.vue')
+            path:"/bang/release",
+            component:()=>import('@/views/user/Bang/ReleaseBang.vue')
         },
         {
-            path:"/person/bindingPhone",
-            component:()=>import('@/views/user/userInfo/BindingPhone.vue')
-        }
+            path:"/bangHall",
+            component:()=>import('@/views/user/Bang/BangHall.vue')
+        },
+        {
+            path:"/bang/treeSelect",
+            component:()=>import('@/views/user/Bang/TreeSelect.vue')
+        },
+        {
+            path:"/bang/bangMap",
+            component:()=>import('@/views/user/Bang/BangMap.vue')
+        },
+        {
+            path:"/userRelease",
+            component:()=>import('@/views/user/userInfo/UserRelease.vue')
+        },
+        {
+            path:"/userRelease",
+            component:()=>import('@/views/user/userInfo/UserRelease.vue')
+        },
+        {
+            path:"/userBang",
+            component:()=>import('@/views/user/userInfo/UserBang.vue')
+        },
+        {
+            path:"/allBang/:id",
+            component:()=>import('@/views/user/Bang/AllMyBang.vue')
+        },
+        {
+            path:"/allBangRelease/:id",
+            component:()=>import('@/views/user/Bang/AllBang.vue')
+        },
+        {
+            path:`/chat`,
+            component:()=>import('@/views/user/Chat/PersonToPerson.vue')
+        },
+        {
+            path:`/sameCity`,
+            component:()=>import('@/views/user/Bang/SameCity.vue')
+        },
+        {
+            path:`/today`,
+            component:()=>import('@/views/user/Bang/BangToday.vue')
+        },
+        {
+            path:`/userCollection`,
+            component:()=>import('@/views/user/Bang/UserCollection.vue')
+        },
     ]
 })
 //路由前置守卫

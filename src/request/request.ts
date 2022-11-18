@@ -1,5 +1,6 @@
 import { useStore } from "@/stores";
 import axios from "axios";
+import QS from 'qs'
 import { config } from "@fortawesome/fontawesome-svg-core";
 // @ts-ignore
 //设置post请求方式请求头
@@ -50,7 +51,7 @@ export function get1(url:string){
 }
 export function post(url:string, params:any) {
     return new Promise((resolve, reject) => {
-        requests.post(url, params)
+        requests.post(url,  params)
             .then(res => {
                 resolve(res);
             })

@@ -2,7 +2,7 @@
   <div class="Login_Wrapped">
     <loading-cps ref="crx"/>
     <status-bar/>
-<!--    顶部导航栏-->
+    <!--    顶部导航栏-->
     <van-config-provider :theme-vars="topBar">
       <van-nav-bar title="登录">
 
@@ -39,16 +39,19 @@
                 <img src="../../../assets/img/lock.png" style="width: 24px;height: 24px;">
               </template>
               <template #right-icon>
-                <img src="../../../assets/img/passwordFalse.png" style="width: 22px;height: 15px;" v-show="isShowPassword" @click="changShowPassword">
-                <img src="../../../assets/img/passwordTrue.png" style="width: 22px;height: 15px;" v-show="!isShowPassword" @click="changShowPassword">
+                <img src="../../../assets/img/passwordFalse.png" style="width: 22px;height: 15px;"
+                     v-show="isShowPassword" @click="changShowPassword">
+                <img src="../../../assets/img/passwordTrue.png" style="width: 22px;height: 15px;"
+                     v-show="!isShowPassword" @click="changShowPassword">
               </template>
             </van-field>
           </van-cell-group>
 
           <router-link to="/retrieve Password" class="retrievePassword">忘记密码?</router-link>
           <div style="display: flex;justify-content: center;">
-<!--            提交的按钮-->
-            <van-button class="loginBtn" :disabled="loginBtnIsDisabled"  :style="loginBtnIsDisabled?'opacity:.3':'opacity:1'" native-type="submit">
+            <!--            提交的按钮-->
+            <van-button class="loginBtn" :disabled="loginBtnIsDisabled"
+                        :style="loginBtnIsDisabled?'opacity:.3':'opacity:1'" native-type="submit">
               <div class="btnLabel">登录</div>
             </van-button>
           </div>
@@ -58,9 +61,9 @@
         </div>
         <div class="otherLogin_wrapped">
           <div class="otherLogin">
-          <div class="otherLogin_item item_qq">
-            <img src="../../../assets/img/qq.png">
-          </div>
+            <div class="otherLogin_item item_qq">
+              <img src="../../../assets/img/qq.png">
+            </div>
             <div class="otherLogin_item item_wx">
               <img src="../../../assets/img/wx.png">
             </div>
@@ -76,7 +79,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { login } from '@/request/api';
+import { getPersonInformation, login } from '@/request/api';
 import { nextTick, onMounted, reactive, ref, toRaw, watch } from "vue";
 import { useStore } from "@/stores";
 import jwt_decode from 'jwt-decode'
@@ -96,10 +99,11 @@ const topBar = {
 
 }
 //显隐密码
-const isShowPassword=ref(false)
-const changShowPassword=ref(()=>{})
+const isShowPassword = ref(false)
+const changShowPassword = ref(() => {
+})
 //禁用/启用按钮 默认禁用
-const loginBtnIsDisabled=ref(true)
+const loginBtnIsDisabled = ref(true)
 //解析token
 const store = useStore()
 const email = ref('')
@@ -108,22 +112,22 @@ const patternEmail = /^[1-9][0-9]{4,10}@qq.com$/
 const patterPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
 //加载动画的ref
 const crx = ref<any>()
-watch([password,email],(newVal,oldVal)=>{
+watch([password, email], (newVal, oldVal) => {
   //显隐密码逻辑
-if (!password.value){
-  //密码框没有值禁用点击事件
-changShowPassword.value=()=>{
-  Toast({
-    message:'请输入密码',
-    position:'bottom'
-  })
-}
-  isShowPassword.value=false
-}else {
-  changShowPassword.value=()=>{
-    isShowPassword.value=!isShowPassword.value
+  if (!password.value) {
+    //密码框没有值禁用点击事件
+    changShowPassword.value = () => {
+      Toast({
+        message: '请输入密码',
+        position: 'bottom'
+      })
+    }
+    isShowPassword.value = false
+  } else {
+    changShowPassword.value = () => {
+      isShowPassword.value = !isShowPassword.value
+    }
   }
-}
 //禁用/启用登录按钮逻辑
   loginBtnIsDisabled.value = !(patternEmail.test(email.value) && patterPassword.test(password.value));
 })
@@ -132,41 +136,37 @@ changShowPassword.value=()=>{
 //登录函数
 const onSubmit = (values: object) => {
   if (values) {
-    new Promise(resolve => {
-      // Toast.loading('验证中...');
-      crx.value.loading1.true()
-      //发送请求
-      login({
-        "email": email.value,
-        "password": password.value
-      }).then((res: any) => {
-        if (res.code !== 1) {
-          mui.toast(`${res.message}`)
-          crx.value.loading1.clear()
-        } else {
-          crx.value.loading1.clear()
-          // Toast.success('登陆成功');
-          mui.toast('登陆成功')
-          const token = res.result.token
-          //token存到本地
-          // localStorage.setItem("token", token);
-          //相关信息
-          const userInfo = jwt_decode(token)
-          store.setIsLogin(true)
-          store.setToken(token)
-          store.setUser(userInfo)
-          router.push({
-            path:'/home'
-          })
-          //跳转home后清除所有历史记录
-          const backLength = window.history.length - 1
-          router.go(-backLength)
-
-        }
-
-      })
-      ;
-    });
+    // Toast.loading('验证中...');
+    crx.value.loading1.true()
+    //发送请求
+    login({
+      "email": email.value,
+      "password": password.value
+    }).then((res: any) => {
+      if (res.code !== 1) {
+        mui.toast(`${res.message}`)
+        crx.value.loading1.clear()
+      } else {
+        crx.value.loading1.clear()
+        // Toast.success('登陆成功');
+        mui.toast('登陆成功')
+        const token = res.result.token
+        const userInfo = jwt_decode(token)
+        store.setIsLogin(true)
+        store.setToken(token)
+        console.log(userInfo)
+        store.setUser(userInfo)
+        getPersonInformation().then((res:any)=>{
+          if (res.code!==1) return Toast.fail('获取用户信息失败')
+          //服务器拿到的数据
+          store.setUserInfo(res.result)
+        })
+        router.push('/home/index')
+        //跳转home后清除所有历史记录
+        const backLength = window.history.length - 1
+        router.go(-backLength)
+      }
+    })
 
   }
 
@@ -224,14 +224,15 @@ const onSubmit = (values: object) => {
         width: 50px;
         height: 24px;
         opacity: 1;
-          .van-button__text {
-            .btnLabel{
-              color: #ffffff ;
-              text-shadow: 0 2px 4px rgba(0, 0, 0, .25);
-              font-size: 16px;
-            }
 
+        .van-button__text {
+          .btnLabel {
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+            font-size: 16px;
           }
+
+        }
 
       }
 
@@ -286,16 +287,19 @@ const onSubmit = (values: object) => {
       width: 50px;
     }
   }
+
   //其他方式登录
-  .otherLogin_wrapped{
+  .otherLogin_wrapped {
     margin-top: 4vh;
     width: 100vw;
     display: flex;
     justify-content: center;
-    .otherLogin{
+
+    .otherLogin {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      .otherLogin_item{
+
+      .otherLogin_item {
         box-sizing: border-box;
         margin: 10px 12px;
         display: flex;
@@ -305,11 +309,13 @@ const onSubmit = (values: object) => {
         height: 52px;
         border: 1.3px solid rgba(234, 239, 243, 1);
         border-radius: 100%;
-        img{
+
+        img {
           width: 32px;
           height: 32px;
         }
-        &:nth-child(3){
+
+        &:nth-child(3) {
           margin-right: 0;
         }
       }

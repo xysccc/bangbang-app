@@ -23,14 +23,30 @@ import { store } from "@/utils/useStore";
 
 
 onMounted(() => {
+    // mui.init();
+    let clickNum = 0;
+    mui.back = function() {
+      clickNum++;
+      if(clickNum > 1) {
+        plus.runtime.quit();
+      } else {
+        mui.toast("再按一次退出帮帮哟~~");
+      }
+      setTimeout(function() {
+        clickNum = 0
+      }, 2000);
+      return false;
+    }
+
+
   //取消动画
   document.querySelector('.home_Wrapped')!.classList.remove("animate__animated", "animate__bounceInRight")
   //初始底部栏的首页高亮
   footerList.find(item => item.text === store.getIsSelect)!.isSelect = true
 })
-watchEffect(() => {
-  store.setIsSelect('首页')
-})
+// watchEffect(() => {
+//   store.setIsSelect('首页')
+// })
 const blue = ref('')
 const go = (item: any) => {
   const title = item.text
@@ -49,6 +65,9 @@ const go = (item: any) => {
       break
     case '首页':
       router.push('/home/index')
+      break
+    case '信息':
+      router.push('/home/message')
       break
   }
 }

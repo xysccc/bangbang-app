@@ -1,6 +1,6 @@
 <template>
   <div class="bt_Wrapped">
-    <button class="HomeButton"><span>{{label}}</span></button>
+    <button class="HomeButton" ><span>{{label}}</span></button>
   </div>
 </template>
 <script setup lang="ts">

@@ -3,7 +3,9 @@ import { ref } from "vue";
 
 export const useStore = defineStore('XYS', {
     state: () => {
+
         return {
+
             isLogin: false,
             token: '',
             //通过token解析出来的user对象
@@ -21,9 +23,32 @@ export const useStore = defineStore('XYS', {
                 //切换发送验证码文本
                 isActive: ref(true)
             },
-            regInfo:{
-                nowRegEmail:''
-            }
+            regInfo: {
+                nowRegEmail: ''
+            },
+            bangForm: {
+                bang_name: '',
+                bang_money: '',
+                bang_place:'',
+                bang_detailPlace: '',
+                bang_urgent: '0',
+                bang_detail: '',
+                bang_type: {
+                    type: '',
+                    kind: '',
+                    text: ''
+                },
+                bangStartTime:'',
+                bangEndTime:'',
+                bangImg:[],
+                bangImgArr:[]
+            },
+            myBangInfo:{},
+            myBangInfo_shz:{},
+            myBangInfo_yjd:{},
+            myBangInfo_ywc:{},
+            myBangInfo_ygb:{},
+            allChat:[]
         }
     },
     persist: true,
@@ -62,6 +87,19 @@ export const useStore = defineStore('XYS', {
         },
         setUserInfo(title: any) {
             this.userInfo = title
+        },
+        setBangForm() {
+            this.bangForm = {
+                bangImgArr: [],
+                bang_place: "",
+                bangEndTime: "", bangImg: [], bangStartTime: "",
+                bang_type: {kind: '', text: '', type: ''},
+                bang_detail: "",
+                bang_detailPlace: "",
+                bang_money: "",
+                bang_name: "",
+                bang_urgent: "0"
+            }
         }
     },
 })

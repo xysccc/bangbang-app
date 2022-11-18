@@ -6,14 +6,15 @@ const pinia=createPinia()
 import router from './router'
 
 
-import './assets/main.css'
+import './assets/css/main.css'
 import 'vant/es/toast/style';
-import '@/assets/iconfont.css'
+import 'vant/es/image-preview/style';
+import '//at.alicdn.com/t/c/font_3680670_cjjgze1iwg6.js'
 import 'lib-flexible'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 
-/* import font awesome icon component */
+/* import fonts awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */

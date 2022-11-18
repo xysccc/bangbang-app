@@ -47,11 +47,16 @@
 import StatusBar from '@/components/StatusBar.vue'
 import HomeButton from '@/components/HomeButton.vue'
 import LoadingCps from '@/components/LoadingCps.vue'
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { Toast } from "vant";
 import router from "@/router";
 import { store } from "@/utils/useStore";
 import { api_exit } from "@/request/api";
+onMounted(()=>{
+  mui.back = function() {
+    window.history.go(-1);
+  }
+})
 const crx=ref<any>()
 const buttonLabel=ref('退出账号')
 //顶部导航栏样式

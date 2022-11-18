@@ -10,7 +10,7 @@
 <script setup lang="ts">
 //mui
 // import './assets/mui.min.js'
-import './assets/mui.min.css'
+import './assets/css/mui.min.css'
 import 'animate.css';
 
 import { useStore } from '@/stores'

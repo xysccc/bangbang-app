@@ -53,14 +53,14 @@
 </div>
 <!-- 2 end -->
 <!--  3-->
-<div class="my_help">
+<div class="my_help" >
 <div class="my_help1">
 <div class="help_top">我的帮忙</div>
-<div class="help_center">
+<div class="help_center" @click="goUserBang">
   <div class="help_item"><img src="https://s1.ax1x.com/2022/10/06/x1bRA0.png" alt=""><span>待完成</span></div>
-  <div class="help_item"><img src="https://s1.ax1x.com/2022/10/06/x1bg7q.png" alt=""><span>待完成</span></div>
-  <div class="help_item"><img src="https://s1.ax1x.com/2022/10/06/x1bcBn.png" alt=""><span>待完成</span></div>
-  <div class="help_item"><img src="https://s1.ax1x.com/2022/10/06/x1b6ns.png" alt=""><span>待完成</span></div>
+  <div class="help_item"><img src="https://s1.ax1x.com/2022/10/06/x1bg7q.png" alt=""><span>未完成</span></div>
+  <div class="help_item"><img src="https://s1.ax1x.com/2022/10/06/x1bcBn.png" alt=""><span>已完成</span></div>
+  <div class="help_item"><img src="https://s1.ax1x.com/2022/10/06/x1b6ns.png" alt=""><span>全部</span></div>
 
 </div>
 <div class="help_bottom">
@@ -71,7 +71,7 @@
 </div>
 <!--3 end-->
   <div class="other">
-<div class="other_lf">
+<div class="other_lf"  @click="goMyRelease">
   <div class="title">我的发布</div>
   <div class="font_img">
     <span>有困难求帮助</span>
@@ -97,29 +97,31 @@ import { Toast } from "vant";
 import { store } from "@/utils/useStore";
 import { getPersonInformation } from "@/request/api";
 import LoadingCps from '@/components/LoadingCps.vue'
+
 //调用loading的方法的ref
 const crx = ref<any>()
 //显示页面的标识
 onMounted(()=>{
   crx.value.loading1.true()
+  getPersonInformation().then((res:any)=>{
+    if (res.code!==1) return Toast.fail('获取用户信息失败')
+    //获取我的信息成功,赋值到本地
+    Info.myInfo=res.result
+    crx.value.loading1.clear()
+    //服务器拿到的数据
+    const data=res.result
+    //将服务器日期数据修改后存入pinia
+    let date1=new Date(data.birthday)
+    data.birthday=`${date1.getFullYear()}年${date1.getMonth() + 1}月${date1.getDate()}日`;
+    store.setUserInfo(data)
+  })
 })
 //弹出层
 const show = ref(false);
 const showPopup = () => {
   show.value = true;
 };
-getPersonInformation().then((res:any)=>{
-  if (res.code!==1) return Toast.fail('获取用户信息失败')
-  //获取我的信息成功,赋值到本地
-  Info.myInfo=res.result
-  crx.value.loading1.clear()
-  //服务器拿到的数据
-  const data=res.result
-  //将服务器日期数据修改后存入pinia
-  let date1=new Date(data.birthday)
-  data.birthday=`${date1.getFullYear()}年${date1.getMonth() + 1}月${date1.getDate()}日`;
-  store.setUserInfo(data)
-})
+
 const goSz=()=>{
   router.push('/userSz')
 }
@@ -131,12 +133,18 @@ interface myInfo{
 const Info=reactive<any>({
   myInfo:{}
 })
+const goMyRelease=function () {
+  router.push('/userRelease')
+}
+const goUserBang=()=>{
+  router.push('/userBang')
+}
 </script>
 
 <style scoped lang="less">
 @font-face {
   font-family: name;
-  src: url("@/assets/font/MaShanZheng-Regular.ttf");
+  src: url("@/assets/fonts/MaShanZheng-Regular.ttf");
 }
 .xys1{
   width: 60px ;
