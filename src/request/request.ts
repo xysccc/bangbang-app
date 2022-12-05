@@ -1,12 +1,17 @@
 import { useStore } from "@/stores";
 import axios from "axios";
-import QS from 'qs'
-import { config } from "@fortawesome/fontawesome-svg-core";
+import router from "@/router";
+import { Toast } from "vant";
+
 // @ts-ignore
 //设置post请求方式请求头
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 const requests=axios.create({
     baseURL:'http://114.116.95.152:3326',
+    headers:{'Content-Type':'application/json;charset=utf-8'},
+    timeout:5000
+})
+const requests1=axios.create({
     headers:{'Content-Type':'application/json;charset=utf-8'},
     timeout:5000
 })
@@ -25,14 +30,19 @@ requests.interceptors.request.use(config=>{
 })
 //响应拦截器
 requests.interceptors.response.use(res=>{
+    if (res.data.msg==="token已过期,请重新登录"){
+        Toast.fail('登录过期,请重新登录')
+        router.push('/login')
+
+    }
     return res.data
 },error => {
     return Promise.reject(new Error('response failed'))
 })
-export function get(url:string, params:any){
+export function get(url:string, ...params:any){
     return new Promise((resolve, reject) =>{
         requests.get(url, {
-            params: params
+            params: params[0]
         }).then(res => {
             resolve(res);
         }).catch(err =>{
@@ -40,18 +50,10 @@ export function get(url:string, params:any){
         })
     })
 }
-export function get1(url:string){
-    return new Promise((resolve, reject) =>{
-        requests.get(url).then(res => {
-            resolve(res);
-        }).catch(err =>{
-            reject(err.data)
-        })
-    })
-}
-export function post(url:string, params:any) {
+
+export function post(url:string, ...params:any) {
     return new Promise((resolve, reject) => {
-        requests.post(url,  params)
+        requests.post(url,  params[0])
             .then(res => {
                 resolve(res);
             })
@@ -60,20 +62,10 @@ export function post(url:string, params:any) {
             })
     });
 }
-export function post1(url:string) {
+
+export function put(url: string, ...params: any) {
     return new Promise((resolve, reject) => {
-        requests.post(url)
-            .then(res => {
-                resolve(res);
-            })
-            .catch(err =>{
-                reject(err.data)
-            })
-    });
-}
-export function put(url: string, params: object) {
-    return new Promise((resolve, reject) => {
-        requests.put(url,params)
+        requests.put(url,params[0])
             .then(res => {
                 resolve(res);
             })
@@ -84,4 +76,4 @@ export function put(url: string, params: object) {
 }
 
 
-export default requests
+export { requests,requests1 }

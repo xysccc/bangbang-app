@@ -151,7 +151,7 @@ const onSubmit = (values: object) => {
         // Toast.success('登陆成功');
         mui.toast('登陆成功')
         const token = res.result.token
-        const userInfo = jwt_decode(token)
+        const userInfo:any = jwt_decode(token)
         store.setIsLogin(true)
         store.setToken(token)
         console.log(userInfo)
@@ -161,10 +161,12 @@ const onSubmit = (values: object) => {
           //服务器拿到的数据
           store.setUserInfo(res.result)
         })
+        mui.alert("对部分鸿蒙2.0华为手机首页白屏！请换其他机型测试")
         router.push('/home/index')
-        //跳转home后清除所有历史记录
-        const backLength = window.history.length - 1
-        router.go(-backLength)
+
+        // //跳转home后清除所有历史记录
+        // const backLength = window.history.length - 1
+        // router.go(-backLength)
       }
     })
 

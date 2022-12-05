@@ -54,6 +54,10 @@ const router = createRouter({
                     path:"message",
                     component:()=>import('@/views/home/UserMessage.vue')
                 },
+                {
+                    path:"shortVideo",
+                    component:()=>import('@/views/otherFunction/ShortVideo.vue')
+                },
             ]
         },
         {
@@ -85,10 +89,6 @@ const router = createRouter({
             component:()=>import('@/views/user/userInfo/UserRelease.vue')
         },
         {
-            path:"/userRelease",
-            component:()=>import('@/views/user/userInfo/UserRelease.vue')
-        },
-        {
             path:"/userBang",
             component:()=>import('@/views/user/userInfo/UserBang.vue')
         },
@@ -114,7 +114,32 @@ const router = createRouter({
         },
         {
             path:`/userCollection`,
-            component:()=>import('@/views/user/Bang/UserCollection.vue')
+            component:()=>import('@/views/user/userInfo/UserCollection.vue')
+        },
+        {
+            path:`/photoWall`,
+            component:()=>import('@/views/otherFunction/PhotoWall.vue')
+        },
+        {
+            path:"/photoWall/:type",
+            component:()=>import('@/views/otherFunction/PhotoWallDetail.vue')
+        },
+        {
+            path:"/wyy",
+            component:()=>import('@/views/otherFunction/WyyBuzz.vue')
+        },
+
+        {
+            path:"/userLv",
+            component:()=>import('@/views/user/userInfo/UserLv.vue')
+        },
+        {
+            path:"/userFoot",
+            component:()=>import('@/views/user/userInfo/UserFootprint.vue')
+        },
+        {
+            path:"/userAccount",
+            component:()=>import('@/views/user/userInfo/UserAccount.vue')
         },
     ]
 })

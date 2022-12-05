@@ -48,7 +48,9 @@ export const useStore = defineStore('XYS', {
             myBangInfo_yjd:{},
             myBangInfo_ywc:{},
             myBangInfo_ygb:{},
-            allChat:[]
+            allChat:[],
+            getMessage:{},
+            getChatList:{},
         }
     },
     persist: true,

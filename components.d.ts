@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    EmptyCps: typeof import('./src/components/EmptyCps.vue')['default']
     HomeButton: typeof import('./src/components/HomeButton.vue')['default']
     LoadingCps: typeof import('./src/components/LoadingCps.vue')['default']
     LoadingIcon: typeof import('./src/components/icons/LoadingIcon.vue')['default']
@@ -18,10 +19,12 @@ declare module '@vue/runtime-core' {
     VanButton: typeof import('vant/es')['Button']
     VanCell: typeof import('vant/es')['Cell']
     VanCellGroup: typeof import('vant/es')['CellGroup']
+    VanCircle: typeof import('vant/es')['Circle']
     VanConfigProvider: typeof import('vant/es')['ConfigProvider']
     VanDatetimePicker: typeof import('vant/es')['DatetimePicker']
     VanDropdownItem: typeof import('vant/es')['DropdownItem']
     VanDropdownMenu: typeof import('vant/es')['DropdownMenu']
+    VanEmpty: typeof import('vant/es')['Empty']
     VanField: typeof import('vant/es')['Field']
     VanForm: typeof import('vant/es')['Form']
     VanIcon: typeof import('vant/es')['Icon']
@@ -39,6 +42,8 @@ declare module '@vue/runtime-core' {
     VanSwipeItem: typeof import('vant/es')['SwipeItem']
     VanSwitch: typeof import('vant/es')['Switch']
     VanTab: typeof import('vant/es')['Tab']
+    VanTabbar: typeof import('vant/es')['Tabbar']
+    VanTabbarItem: typeof import('vant/es')['TabbarItem']
     VanTabs: typeof import('vant/es')['Tabs']
     VanTreeSelect: typeof import('vant/es')['TreeSelect']
     VanUploader: typeof import('vant/es')['Uploader']

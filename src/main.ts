@@ -9,7 +9,8 @@ import router from './router'
 import './assets/css/main.css'
 import 'vant/es/toast/style';
 import 'vant/es/image-preview/style';
-import '//at.alicdn.com/t/c/font_3680670_cjjgze1iwg6.js'
+// import '//at.alicdn.com/t/c/font_3680670_rf67wmjkzgq.js'
+import '@/assets/js/iconfont'
 import 'lib-flexible'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'

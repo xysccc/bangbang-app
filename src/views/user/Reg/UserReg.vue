@@ -124,10 +124,11 @@
 import LoadingCps from '@/components/LoadingCps.vue'
 import { reactive, ref, watch } from "vue";
 import { api_getCode,api_reg } from "@/request/api";
-import { Toast } from "vant";
+import { Dialog, Toast } from "vant";
 import router from "@/router";
 import HomeButton from "@/components/HomeButton.vue";
 import StatusBar from '@/components/StatusBar.vue'
+import 'vant/es/dialog/style';
 
 //顶部导航栏样式
 const topBar = {
@@ -155,6 +156,11 @@ const go=()=>{
   console.log(checked.value)
   if (checked.value==='qqEmail'){
     router.push('/reg/reg1')
+  }else {
+    Dialog.alert({
+      message: '暂未开放',
+    }).then(() => {
+    });
   }
 }
 // 表单数据

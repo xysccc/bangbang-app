@@ -1,27 +1,66 @@
 <template>
-  <div class="home_Wrapped">
+  <div class="home_Wrapped" style="height: 100vh;">
+<!--    <div class="div" ref="animation1"></div>-->
     <router-view/>
-    <div class="footer">
-      <div class="footer_item" v-for="item in footerList" @click="go(item)">
-        <!--:class="item.isSelect===true?'blue':''"-->
-        <div class="item_icon">
-          <img :src="item.imgSrc" v-if="!item.isSelect" :style="item.styleStr">
-          <img :src="item.imgSrc1" v-if="item.isSelect" :style="item.styleStr">
-        </div>
-        <div class="item_text" :style="item.isSelect?'color:#6d86f2':''">{{ item.text }}
-        </div>
-      </div>
-    </div>
+
+      <div class="fb" ref="animation1" @click="router.push('/bang/release')"></div>
+      <van-tabbar route active-color="#627df1">
+        <van-tabbar-item replace to="/home/index">
+          <span style="font-size: 15px">首页</span>
+          <template #icon="props">
+            <svg class="icon" aria-hidden="true" :class="props.active ? 'blue':''" style="font-size: 32px">
+              <use xlink:href="#icon-a-shouye1"></use>
+            </svg>
+
+          </template>
+        </van-tabbar-item>
+        <van-tabbar-item replace to="/home/shortVideo">
+          <span style="font-size: 15px">看看</span>
+          <template #icon="props">
+            <svg class="icon" aria-hidden="true" :class="props.active ? 'blue':''" style="font-size: 32px">
+              <use xlink:href="#icon-remen"></use>
+            </svg>
+          </template>
+        </van-tabbar-item>
+        <van-tabbar-item>
+        </van-tabbar-item>
+        <van-tabbar-item replace to="/home/message" :badge="noRead">
+          <span style="font-size: 15px">信息</span>
+          <template #icon="props">
+            <svg class="icon" aria-hidden="true" :class="props.active ? 'blue':''" style="font-size: 32px">
+              <use xlink:href="#icon-xiaoxi"></use>
+            </svg>
+          </template>
+        </van-tabbar-item>
+        <van-tabbar-item replace to="/home/my" >
+          <span style="font-size: 15px">我的</span>
+          <template #icon="props">
+            <svg class="icon" aria-hidden="true" :class="props.active ? 'blue':''" style="font-size: 32px">
+              <use xlink:href="#icon-wode"></use>
+            </svg>
+          </template>
+        </van-tabbar-item>
+      </van-tabbar>
+
+
+
   </div>
+
 </template>
 
 <script setup lang="ts">
 import router from "@/router";
-import { onMounted, reactive, ref, watchEffect } from "vue";
+import { onMounted, reactive, ref, watch, watchEffect } from "vue";
 import { useStore } from "@/stores";
 import { store } from "@/utils/useStore";
-
-
+import lottie from "lottie-web"
+import personHello from "@/assets/json/personHelloJson.json"
+import recommend from "@/assets/json/addJson.json"
+import click from "@/assets/json/recommendedJson.json"
+import add from "@/assets/json/clickJson.json"
+import { api_cx_chatList } from "@/request/api";
+import { Toast } from "vant";
+const animation1:any = ref(null) //获取dom
 onMounted(() => {
     // mui.init();
     let clickNum = 0;
@@ -37,40 +76,21 @@ onMounted(() => {
       }, 2000);
       return false;
     }
-
+  lottie.loadAnimation({
+    container: animation1.value,//选择渲染dom
+    renderer: "svg",//渲染格式
+    loop: true,//循环播放
+    autoplay: true,//是否i自动播放,
+    animationData: add,//渲染动效json
+  })
 
   //取消动画
   document.querySelector('.home_Wrapped')!.classList.remove("animate__animated", "animate__bounceInRight")
-  //初始底部栏的首页高亮
-  footerList.find(item => item.text === store.getIsSelect)!.isSelect = true
-})
-// watchEffect(() => {
-//   store.setIsSelect('首页')
-// })
-const blue = ref('')
-const go = (item: any) => {
-  const title = item.text
-  //将当前选中状态存入pinia
-  store.setIsSelect(title)
-  footerList.forEach(item => {
-    item.isSelect = false
-  })
-  // footerList.find(_=>_.text===store.getIsSelect)!.isSelect=true
-  //选中高亮
-  item.isSelect = true
 
-  switch (title) {
-    case '我的':
-      router.push('/home/my')
-      break
-    case '首页':
-      router.push('/home/index')
-      break
-    case '信息':
-      router.push('/home/message')
-      break
-  }
-}
+})
+
+const blue = ref('')
+
 
 
 interface Footer<T> {
@@ -105,58 +125,55 @@ const footerList = reactive<Footer<string>[]>([
     styleStr:'width:18.5px;height:24.8px',
   },
 ])
-
+const noRead:any=ref(null)
+const getMessageList=async ()=>{
+  console.log('getmes执行了')
+  const res:any=await api_cx_chatList()
+  if (res.code!==1) return Toast.fail('获取未读消息失败 ')
+  noRead.value= res.result.reduce(((oldVal:any,newVal:any)=>{
+    oldVal+=newVal.isRead
+    return oldVal
+  }),0)
+  if (noRead.value===0){
+    noRead.value=null
+  }
+}
+getMessageList()
+store.getMessage=getMessageList
+const getChatList=async ()=>{
+  const res:any=await api_cx_chatList()
+  if (res.code!==1) return Toast.fail('获取消息列表失败')
+  store.getMessage()
+}
+store.getChatList=getChatList
 </script>
 
 <style scoped lang="less">
-.blue {
+.icon {
+  width: 1em; height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+.blue{
   color: #627df1;
 }
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100vw;
-  border-top: 1px solid #ccc;
-  background-color: #fff;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-
-  .footer_item {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-around;
-    align-items: center;
-
-    .item_icon{
-      margin: 10px 0 8px 0;
-    }
-    .item_text{
-      width: 40px;
-      height: 15px;
-      font-size: 15px;
-      font-weight: 400;
-      letter-spacing: 0px;
-      line-height: 0px;
-      color: rgba(179, 179, 179, 1);
-      text-align: center;
-      vertical-align: top;
-    }
-  }
+:deep(.van-tabbar.van-tabbar--fixed.van-hairline--top-bottom.van-safe-area-bottom){
+  border-top: 1px solid #cccccc;
+  padding: 10px 0;
 }
 
-////登录下半部分
-//.bd{
-//  display: flex;
-//  flex-flow: column nowrap;
-//  align-items: center;
-//  justify-content: center;
-//  position: absolute;
-//  top: 30vh;
-//  width: 100vw;
-//  height: 61.32vh;
-//  opacity: 1;
-//  border-radius: 5.33vw;
-//  background: rgba(255, 255, 255, 1);
-//}
+  .fb{
+    position: absolute;
+    bottom: 0;
+    width: 120px;
+    z-index: 10;
+    left: 50%;
+    transform: translateX(-50%);
+    //background-color: red;
+  }
+
+
+
+
 </style>

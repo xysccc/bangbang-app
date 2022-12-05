@@ -14,6 +14,10 @@
 <!--    设置两个字-->
     <span class="label">设置</span>
     <ul>
+      <li class="item" @click="sz">
+        <div class="lf">关于我们</div>
+        <div class="rg"><van-icon name="arrow" /></div>
+      </li>
       <li class="item">
         <div class="lf">通知</div>
         <div class="rg"><van-icon name="arrow" /></div>
@@ -34,10 +38,7 @@
         <div class="lf">管理账户</div>
         <div class="rg"><van-icon name="arrow" /></div>
       </li>
-      <li class="item">
-        <div class="lf">关于我们</div>
-        <div class="rg"><van-icon name="arrow" /></div>
-      </li>
+
     </ul>
     <home-button :label="buttonLabel" @click="exit"/>
   </div>
@@ -54,7 +55,7 @@ import { store } from "@/utils/useStore";
 import { api_exit } from "@/request/api";
 onMounted(()=>{
   mui.back = function() {
-    window.history.go(-1);
+    router.back()
   }
 })
 const crx=ref<any>()
@@ -88,6 +89,14 @@ const exit = () => {
       router.push('/login')
     })
   })
+}
+const sz=()=>{
+  mui.confirm('\n' +
+      '联系电话：18671682176\n' +
+      'QQ邮箱：949516815@qq.com\n' +
+      '帮帮\n' +
+      '发布帮忙、悬赏接单。互帮互助平台\n' +
+      '本软件仅为测试使用，如果侵害到您的个人权益，请及时通过以上渠道与我们取得联系。我们一定会聆听您宝贵的经验，快点加入我们，让生活变得更加精彩吧！')
 }
 </script>
 
