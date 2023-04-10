@@ -26,7 +26,7 @@ requests.interceptors.request.use(config=>{
     }
     return config;
 },error => {
-    return Promise.reject(new Error('request failed'))
+    return Promise.reject(error)
 })
 //响应拦截器
 requests.interceptors.response.use(res=>{
@@ -37,7 +37,7 @@ requests.interceptors.response.use(res=>{
     }
     return res.data
 },error => {
-    return Promise.reject(new Error('response failed'))
+    return Promise.reject(error)
 })
 export function get(url:string, ...params:any){
     return new Promise((resolve, reject) =>{

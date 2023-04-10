@@ -3,7 +3,6 @@ import { ref } from "vue";
 
 export const useStore = defineStore('XYS', {
     state: () => {
-
         return {
 
             isLogin: false,
