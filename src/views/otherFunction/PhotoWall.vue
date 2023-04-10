@@ -45,9 +45,6 @@ const listData=reactive( [
 </script>
 
 <style scoped lang="less">
-.photoWall_wrapped{
-
-}
 .main{
   overflow-y: auto;
   height: 90vh;

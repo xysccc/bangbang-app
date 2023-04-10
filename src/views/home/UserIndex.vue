@@ -72,9 +72,6 @@
           <span class="bang_time" v-if="item.state!==0">{{ time(item) }}后截止</span>
           <span v-else style="color:rgba(172, 172, 172, 1)">已截止</span>
           <span class="bang_money">￥{{ item.money }}</span>
-<!--          <span style="color: rgba(42, 130, 228, 1);font-size: 12px;">  <svg class="icon" aria-hidden="true">-->
-<!--    <use xlink:href="#icon-dingwei1"></use>-->
-<!--</svg>{{userLocation}}同城帮忙</span>-->
         </div>
              </div>
            </div>
@@ -286,7 +283,8 @@ header {
   align-items: center;
   width: 375px;
   height: 129px;
-  background: url("https://s1.ax1x.com/2022/10/21/xcSUiD.png") no-repeat;
+  // background: url("https://s1.ax1x.com/2022/10/21/xcSUiD.png") no-repeat;
+  background-color: #fff;
   background-size: 375px 129px;
   transform: translateY(-30px);
 

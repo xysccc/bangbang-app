@@ -66,8 +66,6 @@ const ylImg=(url)=>{
 const loading = ref(false);
 const finished = ref(false);
 const onLoad = () => {
-  // 异步更新数据
-  // setTimeout 仅做示例，真实场景中一般为 ajax 请求
   console.log('load')
   getPhoto()
   setTimeout(()=>{
