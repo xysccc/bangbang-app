@@ -127,7 +127,6 @@ const footerList = reactive<Footer<string>[]>([
 ])
 const noRead:any=ref(null)
 const getMessageList=async ()=>{
-  console.log('getmes执行了')
   const res:any=await api_cx_chatList()
   if (res.code!==1) return Toast.fail('获取未读消息失败 ')
   noRead.value= res.result.reduce(((oldVal:any,newVal:any)=>{
@@ -170,10 +169,5 @@ store.getChatList=getChatList
     z-index: 10;
     left: 50%;
     transform: translateX(-50%);
-    //background-color: red;
   }
-
-
-
-
 </style>

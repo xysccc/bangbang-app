@@ -86,7 +86,7 @@ export const useStore = defineStore('XYS', {
         setIsSelect(title: string) {
             this.isSelect = title
         },
-        setUserInfo(title: any) {
+        setUserInfo(title: string) {
             this.userInfo = title
         },
         setBangForm() {
